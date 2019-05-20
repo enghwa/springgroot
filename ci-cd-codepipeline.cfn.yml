@@ -18,7 +18,7 @@ Parameters:
   GitSourceRepo:
     Type: String
     Description: GitHub source repository - must contain a Dockerfile and buildspec.yml in the base
-    Default: eks-workshop-sample-api-service-go
+    Default: springgroot
     MinLength: 1
     MaxLength: 100
     ConstraintDescription: You must enter a GitHub repository name
@@ -44,11 +44,12 @@ Parameters:
     Description: GitHub username or organization
     MinLength: 3
     MaxLength: 100
+    Default: enghwa
     ConstraintDescription: You must enter a GitHub username or organization
 
   CodeBuildDockerImage:
     Type: String
-    Default: aws/codebuild/docker:17.09.0
+    Default: aws/codebuild/standard:2.0-1.9.0 #aws/codebuild/docker:17.09.0
     Description: Default AWS CodeBuild Docker optimized image
     MinLength: 3
     MaxLength: 100
@@ -309,6 +310,7 @@ Resources:
         ComputeType: BUILD_GENERAL1_SMALL
         Type: LINUX_CONTAINER
         Image: !Ref CodeBuildDockerImage
+        PrivilegedMode: true
         EnvironmentVariables:
           - Name: REPOSITORY_URI
             Value: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${EcrDockerRepository}
