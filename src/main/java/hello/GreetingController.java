@@ -25,7 +25,7 @@ public class GreetingController {
 		return sum;
     }
 
-    private static final String template = "Hello and Welcome, %s!";
+    private static final String template = "Hello hello and Welcome, %s!";
     private final AtomicLong counter = new AtomicLong();
     
     @RequestMapping("/")
